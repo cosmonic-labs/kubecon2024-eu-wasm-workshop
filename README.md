@@ -24,7 +24,7 @@ In this workshop, we're going to:
 >
 > `apt update; apt install curl pkg-config -y;`
 
-### 1.1 (optional) Install Rust
+### 1.1 (optional) 🦀 Install Rust
 
 **This step is only necessary if you're *not* using `docker`**
 
@@ -35,7 +35,7 @@ You can find out [how to install Rust from rust-lang.org][rust-install].
 [rust]: https://rust-lang.org
 [rust-install]: https://www.rust-lang.org/tools/install
 
-### 1.2 Clone Dan Gohman's [`hello-wasi-http`](https://github.com/sunfishcode/hello-wasi-http/) repository
+### 1.2 ⬇️ Clone Dan Gohman's [`hello-wasi-http`](https://github.com/sunfishcode/hello-wasi-http/) repository
 
 You can clone the repository with `git`:
 
@@ -43,7 +43,7 @@ You can clone the repository with `git`:
 git clone https://github.com/sunfishcode/hello-wasi-http.git
 ```
 
-### 1.3 Install `wasmtime` and related tools
+### 1.3 🏗️ Install `wasmtime` and related tools
 
 Before we can build WebAssembly components in Rust, we'll need to install some Rust ecosystem tooling:
 
