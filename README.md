@@ -83,9 +83,17 @@ world target-world {
 }
 ```
 
-This `world` defines all of the interfaces (and functions) that this component will import and export. To make it fully compliant with the `wasi:http` standard it includes all of the interfaces in the `wasi:http/proxy` world, most notably `wasi:http/incoming-handler@0.2.0` which is for handling an incoming HTTP request.
+This `world` defines all of the interfaces (and functions) that the component we're about to build will import and export.
 
-The `world` is also embedded into every component you build; you can inspect every Wasm component to see exactly what its capabilities are before running it. This is a game-changer for security with fine-grained allow lists of capabilities, and it lets you understand a component without seeing the source code. Think of the tools we have to inspect containers, their contents, and what they do, it's very difficult to inspect binaries and containers for what they'll do at runtime before running them.
+To enable our component to handle incoming HTTP requests, we're `include`ing the `wasi:http/proxy` interface (`<namespace>:<package>/<interface>`), at version `0.2.0`. This interface includes a shareable implementation for handling HTTP requests.
+
+WIT information (the `world`, `interface`s, etc) is embedded into every WebAssembly component you build; you can inspect Wasm components to see exactly what interfaces they implement are before running them.
+
+> [!NOTE] 💥 Gamechanger for security
+> Interfaces are like the wasmCloud concept of capabilities, whch we can use with fine-grained security controls to make our execution environments safe.
+>
+> By inspecting interfaces, we can understand a component *without* seeing or executing the code.
+> Think of the tools we have to inspect containers, their contents, and what they do, it's very difficult to inspect binaries and containers for what they'll do at runtime before running them.
 
 Feel free to take a look in `src/lib.rs` as well, where you can find the implementation code for this component directly using the WASI interface.
 
