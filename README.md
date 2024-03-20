@@ -35,13 +35,15 @@ You can find out [how to install Rust from rust-lang.org][rust-install].
 [rust]: https://rust-lang.org
 [rust-install]: https://www.rust-lang.org/tools/install
 
-### 1.2 ⬇️ Clone Dan Gohman's [`hello-wasi-http`](https://github.com/sunfishcode/hello-wasi-http/) repository
+### 1.2 ⬇️ Clone Dan Gohman's [`sunfishcode/hello-wasi-http`][github-sunfishcode/hello-wasi-http] repository
 
 You can clone the repository with `git`:
 
 ```console
 git clone https://github.com/sunfishcode/hello-wasi-http.git
 ```
+
+[sunfishcode/hello-wasi-http]: https://github.com/sunfishcode/hello-wasi-http/
 
 ### 1.3 🏗️ Install `wasmtime` and related tools
 
@@ -66,10 +68,13 @@ cargo install wasmtime-cli wasm-tools cargo-component
 
 ## 2. ⁉️What the WIT
 
-To build a WebAssembly component we'll be using the [WebAssembly Interface Types ("WIT") specification][wit-spec].
+Here we'll learn about the [WebAssembly Interface Types specification][wit], which helps us build and connect components with declarative, high level types.
 
-From the **hello-wasi-http** repository you cloned locally, take a look at the WebAssembly Interface Types in `wit/world.wit`:
-```go
+### 2.1 Define the WIT
+
+From the [**`hello-wasi-http`**][github-sunfishcode/hello-wasi-http] repository you cloned locally, take a look at the WebAssembly Interface Types in [`wit/world.wit`](https://github.com/sunfishcode/hello-wasi-http/blob/main/wit/world.wit):
+
+```wit
 package sunfishcode:hello-wasi-http;
 
 world target-world {
