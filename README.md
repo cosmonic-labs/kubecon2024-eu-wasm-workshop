@@ -61,6 +61,8 @@ We can install all the tooling we'll need with [`cargo`][cargo], the package ("c
 cargo install wasmtime-cli wasm-tools cargo-component
 ```
 
+[wasm-tools]: https://github.com/bytecodealliance/wasm-tools
+[cargo-component]: https://github.com/bytecodealliance/cargo-component
 
 ## 2. ⁉️bWhat the WIT
 
