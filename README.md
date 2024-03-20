@@ -64,7 +64,7 @@ cargo install wasmtime-cli wasm-tools cargo-component
 [wasm-tools]: https://github.com/bytecodealliance/wasm-tools
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 
-## 2. ⁉️bWhat the WIT
+## 2. ⁉️What the WIT
 
 To build a WebAssembly component we'll be using the [WebAssembly Interface Types ("WIT") specification][wit-spec].
 
