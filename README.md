@@ -35,7 +35,7 @@ You can find out [how to install Rust from rust-lang.org][rust-install].
 [rust]: https://rust-lang.org
 [rust-install]: https://www.rust-lang.org/tools/install
 
-### 1.2 ⬇️ Clone Dan Gohman's [`sunfishcode/hello-wasi-http`][github-sunfishcode/hello-wasi-http] repository
+### 1.2 ⬇️ Clone Dan Gohman's [``sunfishcode/hello-wasi-http`][github-sunfishcode/hello-wasi-http] repository
 
 You can clone the repository with `git`:
 
