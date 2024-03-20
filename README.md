@@ -1,18 +1,27 @@
-## Hello wasmtime
+## Hello `wasmtime`
 
-This section of the tutorial introduces [wasmtime](https://wasmtime.dev/), a Wasm runtime and one of the Bytecode Alliance's reference implementations for the WebAssembly System Interface ([WASI](https://wasi.dev/)) standards[^1]. We're going to clone an example repository, build a WebAssembly component, and then **serve** it using `wasmtime`.
+This section of the tutorial introduces [wasmtime][wasmtime], a WebAssembly (Wasm) runtime and one of the [Bytecode Alliance][bca]'s reference implementations for the WebAssembly System Interface ([WASI](https://wasi.dev/)) standards[^1].
+
+In this workshop, we're going to:
+- Clone an example repository,
+- Build a WebAssembly component
+- Serve web traffic with our component using `wasmtime`.
+
+[wasmtime]: https://wasmtime.dev
+[bca]: https://bytecodealliance.org
 
 ### Prerequisites
 > [!NOTE]
 > This first example is Rust-focused, but we'll move onto working with other languages (Go, TypeScript, Python) in a later tutorial stage.
 
 > [!NOTE]
-> If you prefer to not clone and install things locally, feel free to work from a Docker container with `docker run --rm -it rust:1-slim-buster`.
+> If you prefer to not clone and install things locally, feel free to work from a Docker container with:
+>
+> `docker run --rm -it rust:1-slim-buster`.
 
 - Clone Dan Gohman's [hello-wasi-http](https://github.com/sunfishcode/hello-wasi-http/) repository
 - Install [Rust](https://www.rust-lang.org/tools/install)
-- Install wasmtime: `curl https://wasmtime.dev/install.sh -sSf | bash`
-- Install wasm-tools and cargo component: `cargo install wasm-tools cargo-component`
+- Install wasmtime, wasm-tools and cargo component: `cargo install wasmtime-cli wasm-tools cargo-component`
 
 ### What the Wit
 From the **hello-wasi-http** repository you cloned locally, take a look at the WebAssembly Interface Types in `wit/world.wit`:
