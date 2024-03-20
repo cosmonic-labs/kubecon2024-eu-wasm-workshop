@@ -123,7 +123,7 @@ WIT information (the `world`, `interface`s, etc) is embedded into every WebAssem
 > [!TIP]
 > **🔐 Gamechanger for security**
 >
-> Interfaces are like the wasmCloud concept of capabilities, whch we can use with fine-grained security controls to make our execution environments safe.
+> Interfaces are like the concept of [capabilities][wiki-capabilities], whch we can use with fine-grained security controls to make our execution environments safe.
 >
 > By inspecting interfaces, we can understand a component *without* seeing or executing the code.
 > Think of the tools we have to inspect containers, their contents, and what they do, it's very difficult to inspect binaries and containers for what they'll do at runtime before running them.
@@ -154,6 +154,7 @@ impl bindings::exports::wasi::http::incoming_handler::Guest for Component {
 This looks pretty similar in each language, and the use of the interface directly here is a good learning exercise.[^2]
 
 [wit-spec]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
+[wiki-capabilities]: https://en.wikipedia.org/wiki/Capability-based_security
 
 ## 🛠️Build your component
 
