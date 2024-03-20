@@ -33,6 +33,7 @@ If you'd like to use our `setup.Dockerfile`, run the following (once you've chec
 
 ```console
 docker build --tag wasm-workshop --file setup.Dockerfile .
+docker run --rm -it wasm-workshop
 ```
 
 ### 1.1 (optional) 🦀 Install Rust
