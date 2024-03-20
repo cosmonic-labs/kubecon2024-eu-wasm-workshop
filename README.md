@@ -32,7 +32,7 @@ apt update && apt install -y curl pkg-config libssl-dev git
 If you'd like to use our `setup.Dockerfile`, run the following (once you've checked out this repository):
 
 ```console
-docker build --tag wasm-workshop -f setup.Dockerfile
+docker build --tag wasm-workshop --file setup.Dockerfile .
 ```
 
 ### 1.1 (optional) 🦀 Install Rust
