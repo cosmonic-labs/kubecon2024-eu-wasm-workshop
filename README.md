@@ -89,7 +89,8 @@ To enable our component to handle incoming HTTP requests, we're `include`ing the
 
 WIT information (the `world`, `interface`s, etc) is embedded into every WebAssembly component you build; you can inspect Wasm components to see exactly what interfaces they implement are before running them.
 
-> [!NOTE] 💥 Gamechanger for security
+> [!NOTE]
+> **💥 Gamechanger for security**
 > Interfaces are like the wasmCloud concept of capabilities, whch we can use with fine-grained security controls to make our execution environments safe.
 >
 > By inspecting interfaces, we can understand a component *without* seeing or executing the code.
