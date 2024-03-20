@@ -1,4 +1,4 @@
-## Hello `wasmtime`
+# 👋 Hello `wasmtime`
 
 This section of the tutorial introduces [wasmtime][wasmtime], a WebAssembly (Wasm) runtime and one of the [Bytecode Alliance][bca]'s reference implementations for the WebAssembly System Interface ([WASI](https://wasi.dev/)) standards[^1].
 
@@ -10,7 +10,8 @@ In this workshop, we're going to:
 [wasmtime]: https://wasmtime.dev
 [bca]: https://bytecodealliance.org
 
-### Prerequisites
+## 📦 1. Setup
+
 > [!NOTE]
 > This first example is Rust-focused, but we'll move onto working with other languages (Go, TypeScript, Python) in a later tutorial stage.
 
@@ -18,12 +19,53 @@ In this workshop, we're going to:
 > If you prefer to not clone and install things locally, feel free to work from a Docker container with:
 >
 > `docker run --rm -it rust:1-slim-buster`.
+>
+> Once you're in the Docker container, you can install the basic dependencies for the demo with:
+>
+> `apt update; apt install curl pkg-config -y;`
 
-- Clone Dan Gohman's [hello-wasi-http](https://github.com/sunfishcode/hello-wasi-http/) repository
-- Install [Rust](https://www.rust-lang.org/tools/install)
-- Install wasmtime, wasm-tools and cargo component: `cargo install wasmtime-cli wasm-tools cargo-component`
+### 1.1 (optional) Install Rust
 
-### What the Wit
+**This step is only necessary if you're *not* using `docker`**
+
+As this demo will be working primarily in [Rust][rust], you'll need to install the Rust language toolchain.
+
+You can find out [how to install Rust from rust-lang.org][rust-install].
+
+[rust]: https://rust-lang.org
+[rust-install]: https://www.rust-lang.org/tools/install
+
+### 1.2 Clone Dan Gohman's [`hello-wasi-http`](https://github.com/sunfishcode/hello-wasi-http/) repository
+
+You can clone the repository with `git`:
+
+```console
+git clone https://github.com/sunfishcode/hello-wasi-http.git
+```
+
+### 1.3 Install `wasmtime` and related tools
+
+Before we can build WebAssembly components in Rust, we'll need to install some Rust ecosystem tooling:
+
+Here is some information on the tools we'll be installing
+
+| Tool                                 | Purpose                                                                                                                                                   |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`wasmtime`][wasmtime]               | Leading WebAssembly runtime implementation, developed by the [Bytecode Alliance][bca], which supports basic WebAssembly and many more advanced standards. |
+| [`wasm-tools`][wasm-tools]           | Tooling for manipulating and modifying WebAssembly binaries and more.                                                                                     |
+| [`cargo-component`][cargo-component] | Rust CLI for building WebAssembly components with Rust                                                                                                    |
+
+We can install all the tooling we'll need with [`cargo`][cargo], the package ("crate") manager of the Rust toolchain:
+
+```console
+cargo install wasmtime-cli wasm-tools cargo-component
+```
+
+
+## 2. ⁉️bWhat the WIT
+
+To build a WebAssembly component we'll be using the [WebAssembly Interface Types ("WIT") specification][wit-spec].
+
 From the **hello-wasi-http** repository you cloned locally, take a look at the WebAssembly Interface Types in `wit/world.wit`:
 ```go
 package sunfishcode:hello-wasi-http;
@@ -62,7 +104,10 @@ impl bindings::exports::wasi::http::incoming_handler::Guest for Component {
 
 This looks pretty similar in each language, and the use of the interface directly here is a good learning exercise.[^2]
 
-### Build your component
+[wit-spec]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
+
+## 🛠️Build your component
+
 Building your component is similar to building a Rust binary, simply run:
 ```bash
 cargo component build
@@ -87,7 +132,7 @@ world root {
 
 As you can see, this component **import**s standard libraries for IO and standard output/error/in, and **export**s the HTTP incoming handler. You know that this component will _never_ be able to access files, make requests of its own, run arbitrary commands, etc without ever looking at the source code.
 
-### Run your component
+## 👟 Run your component
 You can run your component using **wasmtime serve**, which provides the implementation for the HTTP world.
 
 ```bash
