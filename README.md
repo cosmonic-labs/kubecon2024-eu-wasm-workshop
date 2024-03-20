@@ -63,12 +63,13 @@ We can install all the tooling we'll need with [`cargo`][cargo], the package ("c
 cargo install wasmtime-cli wasm-tools cargo-component
 ```
 
+[cargo]: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html
 [wasm-tools]: https://github.com/bytecodealliance/wasm-tools
 [cargo-component]: https://github.com/bytecodealliance/cargo-component
 
 ## 2. ⁉️What the WIT
 
-Here we'll learn about the [WebAssembly Interface Types specification][wit], which helps us build and connect components with declarative, high level types.
+Here we'll learn about the [WebAssembly Interface Types specification][wit-spec], which helps us build and connect components with declarative, high level types.
 
 ### 2.1 Define the WIT
 
