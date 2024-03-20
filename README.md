@@ -15,14 +15,25 @@ In this workshop, we're going to:
 > [!NOTE]
 > This first example is Rust-focused, but we'll move onto working with other languages (Go, TypeScript, Python) in a later tutorial stage.
 
-> [!NOTE]
-> If you prefer to not clone and install things locally, feel free to work from a Docker container with:
->
-> `docker run --rm -it rust:1-slim-buster`.
->
-> Once you're in the Docker container, you can install the basic dependencies for the demo with:
->
-> `apt update; apt install curl pkg-config -y;`
+### 1.1 🐳 Set up docker container
+
+To get started quickly, if you have `docker` installed, you can start a container:
+
+```console
+docker run --rm -it rust:1-slim-buster
+```
+
+Once your container has loaded up, install the basic dependencies for the demo:
+
+```console
+apt update && apt install -y curl pkg-config libssl-dev git
+```
+
+If you'd like to use our `Dockerfile`, run the following (once you've checked out this repository):
+
+```console
+docker build --tag wasm-workshop .
+```
 
 ### 1.1 (optional) 🦀 Install Rust
 
