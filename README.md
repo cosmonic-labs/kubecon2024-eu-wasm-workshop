@@ -36,7 +36,7 @@ docker build --tag wasm-workshop --file setup.Dockerfile .
 docker run --rm -it wasm-workshop
 ```
 
-### 1.1 (optional) 🦀 Install Rust
+### 1.1 (optional) 🦀 Install Rust toolchain natively
 
 **This step is only necessary if you're *not* using `docker`**
 
@@ -83,6 +83,25 @@ cargo install wasmtime-cli wasm-tools cargo-component
 
 Here we'll learn about the [WebAssembly Interface Types specification][wit-spec], which helps us build and connect components with declarative, high level types.
 
+<details>
+<summary> 🗺️ A brief introduction to WIT</summary>
+
+A brief introduction to WIT:
+
+```wit
+package local:demo; # <namespace>:<package>
+
+interface host {
+  log: func(msg: string);
+}
+```
+
+This is a WIT interface that defines a namespace (`local`), and a package (`demo`) which contains *one* interface (`host`).
+
+The `host` interface consists of *one* function (`log`) which accepts a single argument (`msg`, of type `string`) and does not return anything.
+
+</details>
+
 ### 2.1 Define the WIT
 
 From the [**`hello-wasi-http`**][github-sunfishcode/hello-wasi-http] repository you cloned locally, take a look at the WebAssembly Interface Types in [`wit/world.wit`](https://github.com/sunfishcode/hello-wasi-http/blob/main/wit/world.wit):
@@ -95,20 +114,21 @@ world target-world {
 }
 ```
 
-This `world` defines all of the interfaces (and functions) that the component we're about to build will import and export.
+This WIT definition defines a `world` called `target-world` which sets all of the interfaces (and functions) that the component we're about to build will import and export.
 
 To enable our component to handle incoming HTTP requests, we're `include`ing the `wasi:http/proxy` interface (`<namespace>:<package>/<interface>`), at version `0.2.0`. This interface includes a shareable implementation for handling HTTP requests.
 
 WIT information (the `world`, `interface`s, etc) is embedded into every WebAssembly component you build; you can inspect Wasm components to see exactly what interfaces they implement are before running them.
 
-> [!NOTE]
-> **💥 Gamechanger for security**
+> [!TIP]
+> **🔐 Gamechanger for security**
+>
 > Interfaces are like the wasmCloud concept of capabilities, whch we can use with fine-grained security controls to make our execution environments safe.
 >
 > By inspecting interfaces, we can understand a component *without* seeing or executing the code.
 > Think of the tools we have to inspect containers, their contents, and what they do, it's very difficult to inspect binaries and containers for what they'll do at runtime before running them.
 
-Feel free to take a look in `src/lib.rs` as well, where you can find the implementation code for this component directly using the WASI interface.
+Feel free to take a look in [`src/lib.rs`](https://github.com/sunfishcode/hello-wasi-http/blob/main/src/lib.rs#L12) as well, where you can find the implementation code for this component directly using the WASI interface.
 
 ```rust
 // ...imports
@@ -138,13 +158,20 @@ This looks pretty similar in each language, and the use of the interface directl
 ## 🛠️Build your component
 
 Building your component is similar to building a Rust binary, simply run:
-```bash
+
+```console
 cargo component build
 ```
 
 This will create a component in `target/wasm32-wasi/debug`, you can use the **wasm-tools** CLI to inspect its wit:
-```bash
-➜ wasm-tools component wit target/wasm32-wasi/debug/hello_wasi_http.wasm
+
+```console
+wasm-tools component wit target/wasm32-wasi/debug/hello_wasi_http.wasm
+```
+
+You should see output like the following (without syntax highlighting):
+
+```wit
 package root:component;
 
 world root {
@@ -159,16 +186,23 @@ world root {
 }
 ```
 
-As you can see, this component **import**s standard libraries for IO and standard output/error/in, and **export**s the HTTP incoming handler. You know that this component will _never_ be able to access files, make requests of its own, run arbitrary commands, etc without ever looking at the source code.
+As you can see, this component **`import`**s standard libraries for IO and standard output/error/in, and **`export`**s the HTTP incoming handler.
+
+Based on only this information we know that this component will _never_ be able to access files, make web requests of its own, run arbitrary commands, etc without ever looking at the source code.
 
 ## 👟 Run your component
-You can run your component using **wasmtime serve**, which provides the implementation for the HTTP world.
 
-```bash
+You can run your component using **`wasmtime serve`**, which provides the implementation for `wasi:http`, `wasi:io`, `wasi:cli` and others to the WebAssembly component:
+
+```console
 wasmtime serve -Scommon ./target/wasm32-wasi/debug/hello_wasi_http.wasm
 ```
 
-In another terminal, try to `curl localhost:8080` and see the hello!
+In another terminal, you can run `curl` and see the hello statement we've written:
+
+```console
+curl localhost:8080
+```
 
 #### Footnotes
 
